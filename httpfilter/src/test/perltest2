@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+#use strict;
+use Digest::MD5;
+my $type;
+my @typelist=(0x00,0x01);
+
+chomp($type = <STDIN>);
+chomp($blacklist = <STDIN>);
+my $blenth=length $blacklist;
+chomp($url = <STDIN>);
+$url = "HTTP/1.1 301 Moved Permanently\x0d\x0alocation: ".$url."\x0d\x0aContent-type: text/html";
+printf $url;
+my $ulenth=length $url;
+my $final=chr($typelist[$type]).chr($blenth).$blacklist.chr(2).chr($ulenth).$url;
+
+binmode(filehandle1);
+my $md5 = Digest::MD5->new;
+$md5->add($final);
+ 
+#printf $final."\n";
+$mymd5= $md5->hexdigest;
+printf $mymd5."\n";
+@b = $mymd5 =~/\w{2}/g; 
+
+my $c;
+foreach $item (@b){
+$c .= chr(hex($item));
+}
+
+open(filehandle2,">/home/wy/perl/b") or die "can't open file";
+printf filehandle2 $c.$final;
+close(filehandle2);
