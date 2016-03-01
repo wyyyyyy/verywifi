@@ -1,3 +1,12 @@
+/*
+ * httpfilter.c - definitions for the hecuba framebuffer driver
+ *
+ * Copyright (C) 2013 by wuyao
+ *
+ *
+ */
+
+
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
@@ -35,11 +44,11 @@
 
 #include <linux/zlib.h>
 
-static struct nf_hook_ops 		HF_ops;
+static struct nf_hook_ops 	HF_ops;
 static struct timer_list 		HF_tmlist_file;
 static struct timer_list 		HF_tmlist_rule;
 static struct HFRuleCtl 		*pstHFLinkCtl;
-static struct HFRulUpdCtl 		*pstHFRulUpdCtl;
+static struct HFRulUpdCtl 	*pstHFRulUpdCtl;
 static struct work_struct 		HF_filework;
 static struct work_struct 		HF_rulework;
 static struct blkcipher_desc 	desc;
@@ -89,23 +98,23 @@ static int 				 		timer_flag1, timer_flag2;
 #define				HF_TLVTYPE_FINISH		255
 #define				HF_TLV_REGFULL			256
 #define				HF_TLVTYPE_SERCHH1_B	0x010a
-#define				HF_TLVTYPE_SERCHT2_B	0x010b
+#define				HF_TLVTYPE_SERCHT2_B    	0x010b
 #define				HF_TLVTYPE_REPLACE1_B	0x010c
 #define				HF_TLVTYPE_REPLACE2_B	0x010d
 #define				HF_TLVTYPE_VERFLAG		20
 #define				HF_TLVTYPE_APPFLAG		21
 #define				HF_TLVTYPE_CANCLETLV	0x010F
 #define				HF_TLVTYPE_MISREQ		0x0110
-#define				HF_TLVTYPE_MISTIME    	0x0111
+#define				HF_TLVTYPE_MISTIME    	         0x0111
 #define				HF_L1TLVTYPE_MISREQPROC	3
 
-#define 			HF_SET_RULENO(statusold, statusnew)    ((statusold) = (((long)(statusnew))<<24)|(statusold & (~(((long)(0x000000FF))<<24))))
-#define             ASSERT(x)       { if(NULL == x) return HF_ERROR; }
-#define				HF_FROM_LAN				0
-#define				HF_FROM_WAN				1
+#define 			         HF_SET_RULENO(statusold, statusnew)    ((statusold) = (((long)(statusnew))<<24)|(statusold & (~(((long)(0x000000FF))<<24))))
+#define                               ASSERT(x)       { if(NULL == x) return HF_ERROR; }
+#define				HF_FROM_LAN			0
+#define				HF_FROM_WAN			1
 #define				HF_TLV_MAXLEN			2048
-#define 			HF_HTTPFLD_CENTLEN 		16
-#define				HF_HTTP_CHUNKED			1
+#define 			         HF_HTTPFLD_CENTLEN 		16
+#define				HF_HTTP_CHUNKED		1
 #define				HF_HTTP_UNCHUNKED		0
 #define				HF_HTTP_UKNOW			2
 #define				HF_HTP_HEAD				0
@@ -117,8 +126,8 @@ static int 				 		timer_flag1, timer_flag2;
 #define				HF_TMS_H				1
 #define				HF_TMS_T				2
 #define				HF_TMS_R				3
-#define				HF_SEQ_RCODNUM			5
-#define				HF_TLV_EFFECTIVE		1
+#define				HF_SEQ_RCODNUM		5
+#define				HF_TLV_EFFECTIVE		         1
 #define				HF_TLV_INEFFECTIVE		0
 #define				HF_HTPPAK_NUM			64
 #define				HF_RUL_40X 				40
@@ -1971,7 +1980,7 @@ function name 	:counters_minus
 --------------------------------------------------------------------------------
 note		 	: 
 --------------------------------------------------------------------------------
-auther    		: 
+auther    		:  wy
 *******************************************************************************/
 int counters_minus(int value)
 {
@@ -2007,7 +2016,7 @@ function name 	:HF_fix_tcpchecksum
 --------------------------------------------------------------------------------
 note		 	: 
 --------------------------------------------------------------------------------
-auther    		: 
+auther    		:   wy
 *******************************************************************************/
 unsigned int HF_fix_tcpchecksum(struct sk_buff *skb)
 {
@@ -2067,7 +2076,7 @@ function name 	:HF_init
 --------------------------------------------------------------------------------
 note		 	: 
 --------------------------------------------------------------------------------
-auther    		: 
+auther    		:   wy
 *******************************************************************************/
 static int __init HF_init( void )
 {
@@ -2118,7 +2127,7 @@ static int __init HF_init( void )
 	pHFStrMachine = kmalloc(sizeof(struct hFStrMachine) ,GFP_KERNEL);
 	memset(pHFStrMachine,0, sizeof(struct hFStrMachine));
 	//-------------------------------------------------------
-    HF_init_cbc();
+         HF_init_cbc();
 	
 	ndev = dev_get_by_name(&init_net, "eth2");
 	if(NULL != ndev){
@@ -2153,10 +2162,10 @@ static int __init HF_init( void )
 
 /******************************************************************************
 function name 	:HF_exit 
---------------------------------------------------------------------------------
+--------------------------------------------------------------
 note		 	: 
---------------------------------------------------------------------------------
-auther    		: 
+--------------------------------------------------------------
+auther    		:   wy
 *******************************************************************************/
 static void __exit HF_exit(void){
 	DEBUG("\nGoodbye! \n ");
